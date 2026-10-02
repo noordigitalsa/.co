@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var realFetch = window.fetch ? window.fetch.bind(window) : undefined;
+          var activeFetch = realFetch;
+          var defineFetch = function (target) {
+            try {
+              Object.defineProperty(target, 'fetch', {
+                configurable: true,
+                enumerable: true,
+                get: function () {
+                  return activeFetch || realFetch;
+                },
+                set: function (fn) {
+                  activeFetch = typeof fn === 'function' ? fn : realFetch;
+                }
+              });
+            } catch (_) {}
+          };
+          defineFetch(window);
+          defineFetch(Window.prototype);
+        } catch (_) {}
+      })();
+    </script>
+    <title>GOODSiFY Development — Web & Digital Product Studio</title>
+    <meta name="description" content="Custom web development, e-commerce engineering, and digital product studio with transparent fixed-tier pricing and online project intake." />
+    <meta property="og:title" content="GOODSiFY Development — Web & Digital Product Studio" />
+    <meta property="og:description" content="Custom web development, e-commerce engineering, and digital product studio with transparent fixed-tier pricing and online project intake." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[#090A0F] text-[#F8FAFC] antialiased selection:bg-[#2563EB] selection:text-white min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
